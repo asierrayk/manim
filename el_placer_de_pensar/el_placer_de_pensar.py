@@ -1,5 +1,14 @@
 from manim import *
 
+class Palette:
+    DARK = "#072448"
+    BLUE = "#54d2d2"
+    YELLOW = "#ffcb00"
+    ORANGE = "#f8aa4b"
+    RED = "#ff6150"
+
+    GREEN = "#54d254"
+
 class ElPlacerDePensarV1(Scene):
     def construct(self):
         self.wait()

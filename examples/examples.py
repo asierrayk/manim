@@ -120,3 +120,46 @@ class MovingAngle(Scene):
         self.play(theta_tracker.animate.increment_value(140))
         self.play(te.animate.set_color(RED), run_time=0.5)
         self.play(theta_tracker.animate.set_value(350))
+
+class MovingDots(Scene):
+    def construct(self):
+        d1,d2=Dot(color=BLUE),Dot(color=GREEN)
+        dg=VGroup(d1,d2).arrange(RIGHT,buff=1)
+        l1=Line(d1.get_center(),d2.get_center()).set_color(RED)
+        x=ValueTracker(0)
+        y=ValueTracker(0)
+        d1.add_updater(lambda z: z.set_x(x.get_value()))
+        d2.add_updater(lambda z: z.set_y(y.get_value()))
+        l1.add_updater(lambda z: z.become(Line(d1.get_center(),d2.get_center())))
+        self.add(d1,d2,l1)
+        self.play(x.animate.set_value(5))
+        self.play(y.animate.set_value(4))
+        self.wait()
+
+
+class MovingGroupToDestination(Scene):
+    def construct(self):
+        group = VGroup(Dot(LEFT), Dot(ORIGIN), Dot(RIGHT, color=RED), Dot(2 * RIGHT)).scale(1.4)
+        dest = Dot([4, 3, 0], color=YELLOW)
+        self.add(group, dest)
+        self.play(group.animate.shift(dest.get_center() - group[2].get_center()))
+        self.wait(0.5)
+
+
+class MovingFrameBox(Scene):
+    def construct(self):
+        text=MathTex(
+            "\\frac{d}{dx}f(x)g(x)=","f(x)\\frac{d}{dx}g(x)","+",
+            "g(x)\\frac{d}{dx}f(x)"
+        )
+        self.play(Write(text))
+        framebox1 = SurroundingRectangle(text[1], buff = .1)
+        framebox2 = SurroundingRectangle(text[3], buff = .1)
+        self.play(
+            Create(framebox1),
+        )
+        self.wait()
+        self.play(
+            ReplacementTransform(framebox1,framebox2),
+        )
+        self.wait()
