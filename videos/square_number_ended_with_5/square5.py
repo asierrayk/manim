@@ -28,6 +28,7 @@ class Square5(Scene):
                     element[stage].move_to(np.array((-3.0, 1.0, 0.0)), aligned_edge=LEFT)
                 else:
                     element[stage].next_to(elements[-1][stage], DOWN)
+                    element[stage].align_to(elements[-1][stage], LEFT)
             elements.append(element)
 
 
