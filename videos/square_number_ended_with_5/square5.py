@@ -12,38 +12,39 @@ class Square5(Scene):
 
         numbers = list(range(1, self.AMOUNT_EXAMPLES + 1))
 
-        elements_stages = ["number", "number_square", "product", "square"]
-        # equals to
         elements = []
         for i, n in enumerate(numbers):
-            element = dict(
-                index=i,
-                number=MathTex(f"{n}"),
-                number_square=MathTex(f"{n}^2"),
-                product=MathTex(f"{n}^2 = {n}\\cdot{n}"),
-                square=MathTex(f"{n}^2 = {n}\\cdot{n} = {n ** 2}")
-            )
-            for stage in elements_stages:
-                if i == 0:
-                    element[stage].move_to(np.array((-3.0, 1.0, 0.0)), aligned_edge=LEFT)
-                else:
-                    element[stage].next_to(elements[-1][stage], DOWN)
-                    element[stage].align_to(elements[-1][stage], LEFT)
+            element = MathTex(f"{n}", "^2", f" = {n}\\cdot{n}", f" = {n ** 2}")
+            if i == 0:
+                element.move_to(np.array((-3.0, 1.0, 0.0)), aligned_edge=LEFT)
+            else:
+                element.next_to(elements[-1], DOWN)
+                element.align_to(elements[-1], LEFT)
             elements.append(element)
 
 
 
         groups = []
-        for i, stage in enumerate(elements_stages):
-            vdots = MathTex("\\vdots")
-            vdots.next_to(elements[-1][stage], DOWN)
-            group = VGroup(*[e[stage] for e in elements], vdots)
+        for i in range(4):
+            group_elements = [e[i] for e in elements]
             if i == 0:
-                self.play(Write(group, run_time=4))
-            else:
-                self.play(ReplacementTransform(groups[-1], group))
+                vdots = MathTex("\\vdots")
+                vdots.next_to(elements[-1][i], DOWN)
+                group_elements.append(vdots)
+
+            group = VGroup(*group_elements)
+            self.play(Write(group, run_time=3))
             groups.append(group)
 
+        self.wait()
+
+
+        for i, e in enumerate(elements):
+            if i != 4:
+                self.remove(e)
+        self.remove(vdots)
+        element_25 = elements[-1]
+        element_25.move_to(ORIGIN)
         self.wait()
 
 
