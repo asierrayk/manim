@@ -13,22 +13,11 @@ class PortalPalette:
 
 class ElPlacerDePensarV1(Scene):
     def construct(self):
-        # self.wait()
-        # el_placer_de_pensar = Tex(
-        #     "El $\mathbb{P}$lacer de $\mathbb{P}$ensar}", color=Palette.BLACK
-        # )
-        # self.play(Write(el_placer_de_pensar, run_time=1))
-        # self.wait(1)
-        # self.play(FadeOut(el_placer_de_pensar))
-        # self.wait()
-
-
         placer = Text(
             "El Placer",
             color=BLACK,
             gradient=(PortalPalette.BLUE, PortalPalette.LIGHT_BLUE),
             font="TeX Gyre Pagella Math",
-            # text2color={"El": PortalPalette.LIGHT_BLUE, " Placer": PortalPalette.BLUE}
         ).scale(2).move_to(LEFT)
 
         p = Text(
@@ -42,7 +31,6 @@ class ElPlacerDePensarV1(Scene):
             color=BLACK,
             font="TeX Gyre Pagella Math",
             gradient=(PortalPalette.ORANGE, PortalPalette.LIGHT_ORANGE),
-            # text2color={"de": PortalPalette.LIGHT_ORANGE, " Pensar": PortalPalette.ORANGE}
         ).scale(2).next_to(placer, RIGHT)
         circle = Circle(
             color=PortalPalette.LIGHT_BLUE,
